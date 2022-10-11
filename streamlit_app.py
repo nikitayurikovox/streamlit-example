@@ -3,6 +3,7 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import json
 
 """
 # Welcome to Streamlit!
@@ -14,13 +15,27 @@ forums](https://discuss.streamlit.io).
 
 In the meantime, below is an example of what you can do with just a few lines of code:
 """
+with open(r'/Users/nyurikov/PycharmProjects/nlu-avatar-bemchmark/data/result_compare.json', 'r') as file:
+    data_res = json.load(file)
+    statistics_tags = data_res[-1]
+    data = data_res[:-1]
+    file.close()
 
 
 with st.echo(code_location='below'):
-    if st.button('Avatar'):
-        st.write('result: Avatar')
-    elif st.button('DF_CX'):
-        st.write('result: DF_CX')
+    idx = 0
+    idx_end = len(data) - 1
+    while True:
+        st.write(data[idx])
+        if st.button('Avatar'):
+            st.write('result: Avatar')
+        elif st.button('DF_CX'):
+            st.write('result: DF_CX')
+        if idx == idx_end:
+            break
+        else:
+            idx += 1
+    st.write('sssss')
     # total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
     # num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
     #
